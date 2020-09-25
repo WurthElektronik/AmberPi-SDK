@@ -52,7 +52,7 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../drivers/global/global.h" />
-		<Unit filename="../drivers/global/global_serial.c">
+		<Unit filename="../drivers/global/global_termios.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../drivers/hts221/HTS221_Driver.c">

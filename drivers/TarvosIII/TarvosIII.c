@@ -623,7 +623,7 @@ static bool InitDriver(void(*RXcb)(uint8_t*,uint8_t,uint8_t,uint8_t,uint8_t,int8
     }
 
     /* reset module*/
-    if(TarvosIII_PinReset())
+    if(TarvosIII_Reset())
     {
         delay(300);
     }
