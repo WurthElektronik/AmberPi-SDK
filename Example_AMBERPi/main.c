@@ -31,8 +31,6 @@
 
 /* tested with wiringPi version 2.38 */
 #include <wiringPi.h>
-#include <wiringSerial.h>
-#include <wiringPiSPI.h>
 #include <wiringPiI2C.h>
 
 #include "../drivers/TarvosIII/TarvosIII.h"

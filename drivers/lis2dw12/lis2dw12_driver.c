@@ -8,13 +8,7 @@
 #include <stdint.h>
 #include <string.h>
 
-/* tested with wiringPi version 2.38 */
-#include <wiringPi.h>
-#include <errno.h>
-
-#include <wiringPiI2C.h>
-#include <wiringPiSPI.h>
-
+#include "../global/spi/platform_spi.h"
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 /* Private macro -------------------------------------------------------------*/
@@ -26,8 +20,7 @@
 
 #define DUMMY 0x00
 
-static int spi_handle ;
-static int spi_channel = 0;
+#define USE_SPI
 
 static int i2c_handle = 0;
 
@@ -43,9 +36,8 @@ status_t LIS2DW_SpiInit(int channel)
 #if (defined USE_SPI)
     int speed = 4000000; /* 4MHz */
     int spi_mode = 0;
-    spi_channel = channel;
 
-    if ((spi_handle = wiringPiSPISetupMode (spi_channel, speed, spi_mode)) < 0)
+    if(false == SPI_Init(channel, speed, spi_mode))
     {
         /* error */
         return MEMS_ERROR;
@@ -111,7 +103,7 @@ uint8_t LIS2DW_ReadReg(uint8_t Reg, uint8_t* Data)
     fulldata[1] = DUMMY;
 
     LIS2DW_CS_LOW();
-    if (wiringPiSPIDataRW (spi_channel, fulldata, 2) == -1)
+    if(false == SPI_ReadWrite(fulldata, 2))
     {
         return MEMS_ERROR;
     }
@@ -158,7 +150,7 @@ uint8_t LIS2DW_WriteReg(uint8_t Reg, uint8_t Data)
 
     LIS2DW_CS_LOW();
     /* send two bytes, the REG and the data */
-    if (wiringPiSPIDataRW (spi_channel, fulldata, 2) == -1)
+    if (false == SPI_ReadWrite (fulldata, 2))
     {
         return MEMS_ERROR;
     }
